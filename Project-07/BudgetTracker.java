@@ -5,24 +5,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BudgetTracker {
-    private static int writenExpenses = 0;
-    private static int skippedCounter = 0, validCounter = 0;
-    private static double totalSpent = 0;
 
     /*
      * There is not a subfolder in the PrintWriter file path, so it
      * should not throw FileNotFoundException.
      * The Scanner Exception is handled.
      */
+
     public static void main(String[] args) throws FileNotFoundException {
 
-        // Keyboard input used during the whole execution
+        // Keyboard input
         Scanner keyInput = new Scanner(System.in);
+
+        int writenExpenses = 0;
+        int skippedCounter = 0, validCounter = 0;
+        double totalSpent = 0;
 
         // File-related objects and variables
         final String FILE_NAME = "expenses.txt";
         File expensesFile = new File(FILE_NAME);
-        PrintWriter output = new PrintWriter(expensesFile);
 
         // Header
         System.out.println("***********************************************");
@@ -31,10 +32,13 @@ public class BudgetTracker {
 
         int numberOfLines = validateNumberOfLines(keyInput);
 
-        for (int currentLine = 1; currentLine <= numberOfLines; currentLine++) {
-            writeExpenseLine(currentLine, output, keyInput);
-        }
-        output.close(); // End of file writing
+        try (PrintWriter output = new PrintWriter(expensesFile)) {
+            for (int currentLine = 1; currentLine <= numberOfLines; currentLine++) {
+                double amount = validateAmount(keyInput, currentLine);
+                output.println(amount);
+                writenExpenses++;
+            }
+        } // End of file writing
 
         System.out.println("\nSaved " + writenExpenses + " expenses to " + FILE_NAME);
         System.out.println("-----------------------------------------------");
@@ -42,7 +46,14 @@ public class BudgetTracker {
         // Read file
         try (Scanner fileInput = new Scanner(expensesFile)) {
             while (fileInput.hasNext()) {
-                processEntry(fileInput.nextLine());
+                try {
+                    double amount = fileInput.nextDouble();
+                    totalSpent += amount;
+                    validCounter++;
+                } catch (InputMismatchException ex) {
+                    fileInput.next();
+                    skippedCounter++;
+                }
             }
         } catch (FileNotFoundException ex) {
             System.out.println("File \"" + FILE_NAME + "\" not found");
@@ -63,35 +74,8 @@ public class BudgetTracker {
 
     }
 
-    public static void writeExpenseLine(int lineNumber, PrintWriter output, Scanner in) {
-
-        double amount = validateAmount(in, lineNumber);
-
-        // Write line as double (?)
-        output.println(((double) lineNumber) + " " + amount);
-        writenExpenses++;
-    }
-
-    public static void processEntry(String entry) {
-        double amount;
-        try (Scanner expenseLine = new Scanner(entry)) {
-            // Expense number
-            expenseLine.nextDouble();
-
-            if (!expenseLine.hasNextDouble())
-                skippedCounter++;
-            else {
-                amount = expenseLine.nextDouble();
-                totalSpent += amount;
-                validCounter++;
-            }
-        } catch (InputMismatchException ex) {
-            skippedCounter++;
-        }
-    }
-
     public static int validateNumberOfLines(Scanner in) {
-        // While the number of lines is invalid, keeps asking for it.
+        // While the number of lines is invalid (lines<1), keeps asking for it.
         boolean numberIsValid = false;
         int number = -1;
 
