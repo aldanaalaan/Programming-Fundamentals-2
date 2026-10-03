@@ -51,7 +51,7 @@ public class BudgetTracker {
                     totalSpent += amount;
                     validCounter++;
                 } catch (InputMismatchException ex) {
-                    fileInput.next();
+                    fileInput.nextLine();
                     skippedCounter++;
                 }
             }
