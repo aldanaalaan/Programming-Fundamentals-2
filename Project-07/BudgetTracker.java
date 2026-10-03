@@ -65,12 +65,12 @@ public class BudgetTracker {
 
         if (validCounter == 0) {
             System.out.println(FILE_NAME + " has no valid entries.");
-            System.exit(0);
+        } else {
+            System.out.println("Total spent: $" + totalSpent);
+            System.out.println("Valid expenses: " + validCounter);
+            System.out.println("Average expense: $" + (totalSpent / validCounter));
         }
 
-        System.out.println("Total spent: $" + totalSpent);
-        System.out.println("Valid expenses: " + validCounter);
-        System.out.println("Average expense: $" + (totalSpent / validCounter));
         System.out.println("***********************************************");
 
     }
