@@ -45,6 +45,7 @@ public class BudgetTracker {
 
         // Read file
         try (Scanner fileInput = new Scanner(expensesFile)) {
+            System.out.println("Reading expenses.txt...");
             while (fileInput.hasNext()) {
                 try {
                     double amount = fileInput.nextDouble();
