@@ -27,7 +27,7 @@ public class BudgetTracker {
 
         // Header
         System.out.println("***********************************************");
-        System.out.println("Student Budget Tracker (Week 1)");
+        System.out.println("Student Budget Tracker (Week 2)");
         System.out.println("***********************************************");
 
         int numberOfLines = validateNumberOfLines(keyInput);
