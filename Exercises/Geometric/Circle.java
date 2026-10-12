@@ -1,18 +1,11 @@
-
 public class Circle extends GeometricObject {
-  private double radius;
+  private double radius = 0;
 
   public Circle() {
   }
 
   public Circle(double radius) {
-    super();
-    this.radius = radius;
-  }
-
-  public Circle(double radius, String color, boolean filled) {
-    super(color, filled);
-    this.radius = radius;
+    setRadius(radius);
   }
 
   public double getRadius() {
@@ -23,14 +16,12 @@ public class Circle extends GeometricObject {
     this.radius = radius;
   }
 
+  @Override
   public double getArea() {
     return radius * radius * Math.PI;
   }
 
-  double getDiameter() {
-    return 2 * radius;
-  }
-
+  @Override
   public double getPerimeter() {
     return 2 * radius * Math.PI;
   }

@@ -1,19 +1,13 @@
-public class Rectangle extends GeometricObject{
-  private double width;
-  private double height;
+public class Rectangle extends GeometricObject {
+  private double width = 0;
+  private double height = 0;
 
-  public Rectangle() {}
-
-  public Rectangle(double width, double height) {
-    this.width = width;
-    this.height = height;
+  public Rectangle() {
   }
 
-  public Rectangle(double width, double height, String color, boolean filled) {
-    this.width = width;
-    this.height = height;
-    setColor(color);
-    setFilled(filled);
+  public Rectangle(double width, double height) {
+    setWidth(width);
+    setHeight(height);
   }
 
   public double getWidth() {
@@ -32,11 +26,14 @@ public class Rectangle extends GeometricObject{
     this.height = height;
   }
 
+  @Override
   public double getArea() {
     return width * height;
   }
 
+  @Override
   public double getPerimeter() {
     return (width + height) * 2;
   }
+
 }

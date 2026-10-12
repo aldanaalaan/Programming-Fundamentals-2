@@ -1,16 +1,16 @@
-public class GeometricObject {
+public abstract class GeometricObject {
   private String color = "white";
   private boolean filled;
   private java.util.Date dateCreated;
 
-  public GeometricObject(String color, boolean filled) {
-    this.dateCreated = new java.util.Date();
-    this.color = color;
-    this.filled = filled;
+  protected GeometricObject() {
+    dateCreated = new java.util.Date();
   }
 
-  public GeometricObject() {
-    this.dateCreated = new java.util.Date();
+  protected GeometricObject(String color, boolean filled) {
+    this();
+    setColor(color);
+    setFilled(filled);
   }
 
   public String getColor() {
@@ -36,4 +36,8 @@ public class GeometricObject {
   public String toString() {
     return "created on " + dateCreated + "\ncolor: " + color + "\nfilled: " + filled;
   }
+
+  public abstract double getArea();
+
+  public abstract double getPerimeter();
 }
