@@ -1,3 +1,4 @@
 *.class
 expenses.txt
 /.vscode/*
+temp.dat
