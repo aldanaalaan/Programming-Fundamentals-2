@@ -11,6 +11,7 @@ public class TestFileStream {
                 // Create an output stream to the file
                 FileOutputStream output = new FileOutputStream(file);) {
             // Output values to the file
+            System.out.println("Writting...");
             for (int i = 1; i <= 10; i++)
                 output.write(i);
         }
@@ -19,6 +20,7 @@ public class TestFileStream {
                 // Create an input stream for the file
                 FileInputStream input = new FileInputStream(file)) {
             // Read values from the file
+            System.out.println("Reading...");
             int value;
             while ((value = input.read()) != -1)
                 System.out.print(value + " ");
