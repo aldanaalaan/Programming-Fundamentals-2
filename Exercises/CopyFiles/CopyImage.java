@@ -3,7 +3,7 @@ import java.io.*;
 public class CopyImage {
     public static void main(String[] args) throws IOException {
         // Arguments origin, destination
-        if (args.length != 2 && false) {
+        if (args.length != 2) {
             System.out.println("Usage: java Copy origin destination");
             System.exit(1);
         }
